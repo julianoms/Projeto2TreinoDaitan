@@ -30,8 +30,8 @@ public class PersonController {
         personService.CreatePerson(person);
 
         ReturnObject object = new ReturnObject("created","Person created");
-        object.add(linkTo(methodOn(PersonController.class).readById(person.getId())).withSelfRel().withType("GET"));
-        object.add(linkTo(methodOn(PersonController.class).delete(person.getId())).withRel("Delete").withType("DELETE"));
+    //        object.add(linkTo(methodOn(PersonController.class).readById(person.getId())).withSelfRel().withType("GET"));
+    //        object.add(linkTo(methodOn(PersonController.class).delete(person.getId())).withRel("Delete").withType("DELETE"));
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
 
         return ResponseEntity.created(uri).body(object);
@@ -44,48 +44,48 @@ public class PersonController {
         object.add(linkTo(PersonController.class).withSelfRel());
         return ResponseEntity.ok(object);
     }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<ReturnObject> update (
-            @PathVariable(value = "id")long id, @RequestBody Person person) throws PersonNotFoundExeption {
-
-        person.setId(personService.GetPersonById(id).getId());
-        personService.updatePerson(person);
-
-        ReturnObject object = new ReturnObject("Ok","Person Updated");
-        object.add(linkTo(methodOn(PersonController.class).readById(person.getId())).withSelfRel().withType("GET"));
-        object.add(linkTo(methodOn(PersonController.class).delete(person.getId())).withRel("Delete").withType("DELETE"));
-        return  ResponseEntity.ok(object);
-
-    }
+//
+//    @PutMapping("/{id}")
+//    public ResponseEntity<ReturnObject> update (
+//            @PathVariable(value = "id")long id, @RequestBody Person person) throws PersonNotFoundExeption {
+//
+//        person.setId(personService.GetPersonById(id).getId());
+//        personService.updatePerson(person);
+//
+//        ReturnObject object = new ReturnObject("Ok","Person Updated");
+//        object.add(linkTo(methodOn(PersonController.class).readById(person.getId())).withSelfRel().withType("GET"));
+//        object.add(linkTo(methodOn(PersonController.class).delete(person.getId())).withRel("Delete").withType("DELETE"));
+//        return  ResponseEntity.ok(object);
+//
+//    }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ReturnObject> delete (@PathVariable(value = "id") long id)  {
+    public ResponseEntity<ReturnObject> delete (@PathVariable(value = "id") String id)  {
 
         personService.deletePerson(id);
         ReturnObject object = new ReturnObject("deleted","Person Deleted");
         return ResponseEntity.ok(object);
     }
 
-    @RequestMapping("/readByName")
-    public ResponseEntity<ReturnObjectList> readByName(@RequestBody String name){
-        List<Person> people = personService.getPersonByName(name);
-        ReturnObjectList object = new ReturnObjectList("Ok","List of people named :"+name,people);
-        object.add(linkTo(PersonController.class).withSelfRel());
-        return ResponseEntity.ok(object);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<ReturnObjectSingle> readById(@PathVariable(value = "id") Long id) throws PersonNotFoundExeption {
-
-        Person person = personService.GetPersonById(id);
-
-
-
-        ReturnObjectSingle object = new ReturnObjectSingle("Ok","Person retrieved",person);
-        object.add(linkTo(methodOn(PersonController.class).readById(person.getId())).withSelfRel().withType("GET"));
-        object.add(linkTo(methodOn(PersonController.class).delete(person.getId())).withRel("Delete").withType("DELETE"));
-        return ResponseEntity.ok(object);
-    }
+//    @RequestMapping("/readByName")
+//    public ResponseEntity<ReturnObjectList> readByName(@RequestBody String name){
+//        List<Person> people = personService.getPersonByName(name);
+//        ReturnObjectList object = new ReturnObjectList("Ok","List of people named :"+name,people);
+//        object.add(linkTo(PersonController.class).withSelfRel());
+//        return ResponseEntity.ok(object);
+//    }
+//
+//    @GetMapping("/{id}")
+//    public ResponseEntity<ReturnObjectSingle> readById(@PathVariable(value = "id") Long id) throws PersonNotFoundExeption {
+//
+//        Person person = personService.GetPersonById(id);
+//
+//
+//
+//        ReturnObjectSingle object = new ReturnObjectSingle("Ok","Person retrieved",person);
+//        object.add(linkTo(methodOn(PersonController.class).readById(person.getId())).withSelfRel().withType("GET"));
+//        object.add(linkTo(methodOn(PersonController.class).delete(person.getId())).withRel("Delete").withType("DELETE"));
+//        return ResponseEntity.ok(object);
+//    }
 
 }

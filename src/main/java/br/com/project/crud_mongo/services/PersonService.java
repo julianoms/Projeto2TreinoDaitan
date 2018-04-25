@@ -17,15 +17,17 @@ public class PersonService {
 
 
     public Person GetPersonById(String id) throws PersonNotFoundExeption {
-        if(!personRepository.exists(id)){
+
+        Person obj = personRepository.findBy_id(id);
+        if(obj == null){
             throw new PersonNotFoundExeption(id);
         }
-        Person obj = personRepository.findById(id).get();
+
         return obj;
     }
     public List<Person> GetPeople(){
         List<Person> list = new ArrayList<>();
-        personRepository.findAll().forEach(e -> list.add(e));
+        personRepository.findAll().forEach(list::add);
         return list;
     }
     public void CreatePerson(Person person){
@@ -35,8 +37,9 @@ public class PersonService {
     public void updatePerson(Person person){
         personRepository.save(person);
     }
-    public void deletePerson(long id){
-        personRepository.deleteById(id);
+    public void deletePerson(String id){
+        Person person = personRepository.findBy_id(id);
+        personRepository.delete(person);
     }
     public List<Person> getPersonByName(String name){
         return personRepository.findByName(name);

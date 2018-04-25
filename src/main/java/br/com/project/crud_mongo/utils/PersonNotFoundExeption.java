@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value=HttpStatus.NOT_FOUND, reason="Person Not Found") //404
 public class PersonNotFoundExeption extends  Exception{
 
-        public PersonNotFoundExeption(long id){
+        public PersonNotFoundExeption(String id){
             super("PersonNotFoundException with id="+id);
         }
 }
