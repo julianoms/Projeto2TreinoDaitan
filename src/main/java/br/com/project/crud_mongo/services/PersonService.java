@@ -2,9 +2,8 @@ package br.com.project.crud_mongo.services;
 
 import br.com.project.crud_mongo.daos.PersonRepository;
 import br.com.project.crud_mongo.models.Person;
-import br.com.project.crud_mongo.utils.PersonNotFoundExeption;
+import br.com.project.crud_mongo.utils.personNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,11 +15,11 @@ public class PersonService {
     private PersonRepository personRepository;
 
 
-    public Person GetPersonById(String id) throws PersonNotFoundExeption {
+    public Person GetPersonById(String id) throws personNotFoundException {
 
         Person obj = personRepository.findBy_id(id);
         if(obj == null){
-            throw new PersonNotFoundExeption(id);
+            throw new personNotFoundException(id);
         }
 
         return obj;
@@ -37,8 +36,12 @@ public class PersonService {
     public void updatePerson(Person person){
         personRepository.save(person);
     }
-    public void deletePerson(String id){
+    public void deletePerson(String id) throws personNotFoundException {
+
         Person person = personRepository.findBy_id(id);
+        if(person == null){
+            throw new personNotFoundException(id);
+        }
         personRepository.delete(person);
     }
     public List<Person> getPersonByName(String name){

@@ -1,15 +1,32 @@
 package br.com.project.crud_mongo.utils;
 
+import br.com.project.crud_mongo.models.Person;
 import org.springframework.hateoas.ResourceSupport;
+
+import java.util.Collection;
 
 public class ReturnObject extends ResourceSupport {
 
     private String Status;
     private String Message;
+    private Person person;
+    private Collection<Person> people;
 
     public ReturnObject (String status, String message) {
         Status = status;
         Message = message;
+    }
+
+    public ReturnObject(String status, String message, Person person) {
+        Status = status;
+        Message = message;
+        this.person = person;
+    }
+
+    public ReturnObject(String status, String message, Collection<Person> people) {
+        Status = status;
+        Message = message;
+        this.people = people;
     }
 
     public String getStatus() {
@@ -28,4 +45,19 @@ public class ReturnObject extends ResourceSupport {
         Message = message;
     }
 
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public Collection<Person> getPeople() {
+        return people;
+    }
+
+    public void setPeople(Collection<Person> people) {
+        this.people = people;
+    }
 }
