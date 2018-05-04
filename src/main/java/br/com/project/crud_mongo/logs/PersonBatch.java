@@ -17,8 +17,7 @@ public class PersonBatch {
     @Autowired
     private PersonService personService;
 
-    @Scheduled(
-            cron = "0,30 * * * * *")
+    @Scheduled(cron = "0,30 * * * * *")
     public void cronJob() {
         logger.info("***** > ScheduleJob *****");
 

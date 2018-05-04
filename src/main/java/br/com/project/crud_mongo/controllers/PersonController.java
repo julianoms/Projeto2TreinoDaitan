@@ -37,7 +37,7 @@ public class PersonController {
 
     @GetMapping
     public ResponseEntity<ReturnObject> read(@Param(value = "name")String name,
-                                          @Param (value = "country")String country) throws PersonNotFoundException {
+                                             @Param (value = "country")String country) throws PersonNotFoundException {
 
         List<ReturnObjectSingle> returnList = new ArrayList<>();
 
@@ -62,8 +62,8 @@ public class PersonController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ReturnObject> update (
-            @PathVariable(value = "id")String id, @RequestBody Person person) throws PersonNotFoundException {
+    public ResponseEntity<ReturnObject> update (@PathVariable(value = "id")String id,
+                                                @RequestBody Person person) throws PersonNotFoundException {
 
         person.setId(personService.getPersonById(id).getId());
         personService.updatePerson(person);
