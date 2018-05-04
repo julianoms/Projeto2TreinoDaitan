@@ -1,63 +1,56 @@
 package br.com.project.crud_mongo.utils;
 
-import br.com.project.crud_mongo.models.Person;
-import org.springframework.hateoas.ResourceSupport;
+import java.util.List;
 
-import java.util.Collection;
+public class ReturnObject {
 
-public class ReturnObject extends ResourceSupport {
+    private String status;
+    private String message;
+    private List<ReturnObjectSingle> people;
 
-    private String Status;
-    private String Message;
-    private Person person;
-    private Collection<Person> people;
+    public ReturnObject(){}
 
-    public ReturnObject (String status, String message) {
-        Status = status;
-        Message = message;
+    public ReturnObject(String status, String message) {
+        this.status = status;
+        this.message = message;
     }
 
-    public ReturnObject(String status, String message, Person person) {
-        Status = status;
-        Message = message;
-        this.person = person;
-    }
-
-    public ReturnObject(String status, String message, Collection<Person> people) {
-        Status = status;
-        Message = message;
+    public ReturnObject(String status, String message, List<ReturnObjectSingle> people) {
+        this.status = status;
+        this.message = message;
         this.people = people;
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 
     public String getMessage() {
-        return Message;
+        return message;
     }
 
     public void setMessage(String message) {
-        Message = message;
+        this.message = message;
     }
 
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
-    public Collection<Person> getPeople() {
+    public List<ReturnObjectSingle> getPeople() {
         return people;
     }
 
-    public void setPeople(Collection<Person> people) {
+    public void setPeople(List<ReturnObjectSingle> people) {
         this.people = people;
+    }
+
+    @Override
+    public String toString() {
+        return "ReturnObj{" +
+                "status='" + this.status + '\'' +
+                ", message='" + this.message + '\'' +
+                ", people=" + this.people +
+                '}';
     }
 }

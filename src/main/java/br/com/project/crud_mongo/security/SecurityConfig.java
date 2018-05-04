@@ -12,9 +12,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/person/**").authenticated()
-                .antMatchers(HttpMethod.PUT,"/person/**").authenticated()
-                .antMatchers(HttpMethod.DELETE,"/person/**").authenticated()
+                .antMatchers(HttpMethod.POST,"/people/**").authenticated()
+                .antMatchers(HttpMethod.PUT,"/people/**").authenticated()
+                .antMatchers(HttpMethod.DELETE,"/people/**").authenticated()
                 .anyRequest().permitAll().and().httpBasic().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
