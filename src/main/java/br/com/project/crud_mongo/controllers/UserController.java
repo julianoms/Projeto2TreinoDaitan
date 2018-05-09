@@ -13,7 +13,7 @@ public class UserController {
     private UserService userService;
 
 
-    @PostMapping("/sign in")
+    @PostMapping("/signin")
     public String login(//
                         @RequestParam String username, //
                         @RequestParam String password) {

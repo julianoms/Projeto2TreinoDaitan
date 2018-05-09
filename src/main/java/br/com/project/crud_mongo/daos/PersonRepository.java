@@ -10,7 +10,11 @@ import java.util.List;
 public interface PersonRepository extends MongoRepository<Person,Long> {
 
     Person findBy_id(String id);
+
     List<Person> findByName(String name);
+
     List<Person> findByCountry(String country);
+
+    List<Person> findByNameAndCountry(String name, String country);
 
 }

@@ -56,4 +56,6 @@ public class PersonService {
         return personRepository.findByCountry(country);
     }
 
+    public List<Person> getPersonByNameAndCountry(String name, String country){return  personRepository.findByNameAndCountry(name,country);}
+
 }
