@@ -28,7 +28,7 @@ public class PersonController {
 
         personService.createPerson(person);
 
-        List<ReturnObjectSingle> returnList = ResponseSingleCreator(person);
+        List<ReturnObjectSingle> returnList = responseSingleCreator(person);
         ReturnObject returnObj = new ReturnObject("Ok","Person Created",returnList);
 
 
@@ -43,26 +43,26 @@ public class PersonController {
 
         if(name != null && country != null){
             List<Person> people = personService.getPersonByNameAndCountry(name,country);
-            ResponseListCreator(people, returnList);
+            responseListCreator(people, returnList);
             ReturnObject returnObj = new ReturnObject("Ok","List of people named :"+name + " from :"+country,returnList);
             return ResponseEntity.ok(returnObj);
         }
         if(name != null) {
             List<Person> people = personService.getPersonByName(name);
-            ResponseListCreator(people, returnList);
+            responseListCreator(people, returnList);
             ReturnObject returnObj = new ReturnObject("Ok","List of people named :"+name,returnList);
             return ResponseEntity.ok(returnObj);
         }
         if(country != null){
             List<Person> people = personService.getPersonByCountry(country);
-            ResponseListCreator(people, returnList);
+            responseListCreator(people, returnList);
             ReturnObject returnObj = new ReturnObject("Ok","List of people from: "+country,returnList);
             return ResponseEntity.ok(returnObj);
         }
 
         List<Person> people = personService.getPeople();
 
-        ResponseListCreator(people, returnList);
+        responseListCreator(people, returnList);
         ReturnObject returnObj = new ReturnObject("Ok","List of all people:",returnList);
         return ResponseEntity.ok(returnObj);
     }
@@ -74,7 +74,7 @@ public class PersonController {
         person.setId(personService.getPersonById(id).getId());
         personService.updatePerson(person);
 
-        List<ReturnObjectSingle> returnList = ResponseSingleCreator(person);
+        List<ReturnObjectSingle> returnList = responseSingleCreator(person);
         ReturnObject returnObj = new ReturnObject("Ok","Person Updated",returnList);
 
         return  ResponseEntity.ok(returnObj);
@@ -94,12 +94,12 @@ public class PersonController {
 
         Person person = personService.getPersonById(id);
 
-        List<ReturnObjectSingle> returnList = ResponseSingleCreator(person);
+        List<ReturnObjectSingle> returnList = responseSingleCreator(person);
         ReturnObject returnObj = new ReturnObject("Ok","Person retrieved",returnList);
         return  ResponseEntity.ok(returnObj);
     }
 
-    private List<ReturnObjectSingle> ResponseSingleCreator(Person person) throws PersonNotFoundException {
+    private List<ReturnObjectSingle> responseSingleCreator(Person person) throws PersonNotFoundException {
         List<ReturnObjectSingle> returnList = new ArrayList<>();
         ReturnObjectSingle obj = new ReturnObjectSingle(person);
         obj.add(linkTo(methodOn(PersonController.class).readById(person.getId())).withSelfRel().withType("GET"));
@@ -108,7 +108,7 @@ public class PersonController {
         return returnList;
     }
 
-    private void ResponseListCreator(List<Person> people, List<ReturnObjectSingle> returnList) throws PersonNotFoundException {
+    private void responseListCreator(List<Person> people, List<ReturnObjectSingle> returnList) throws PersonNotFoundException {
         ReturnObjectSingle object;
         for(Person person:people){
             object = new ReturnObjectSingle(person);
