@@ -2,7 +2,9 @@ package br.com.project.crud_mongo.controllers;
 
 import br.com.project.crud_mongo.models.User;
 import br.com.project.crud_mongo.services.UserService;
+import br.com.project.crud_mongo.utils.ReturnObjUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,14 +16,18 @@ public class UserController {
 
 
     @PostMapping("/signin")
-    public String login(//
-                        @RequestParam String username, //
-                        @RequestParam String password) {
-        return userService.signin(username, password);
+    public ResponseEntity<ReturnObjUser> login(//
+                                               @RequestParam String username, //
+                                               @RequestParam String password) {
+        String jwt = userService.signin(username, password);
+        ReturnObjUser obj = new ReturnObjUser("Ok","welcome",jwt);
+        return ResponseEntity.ok(obj);
     }
 
     @PostMapping("/signup")
-    public String signup(@RequestBody User user) {
-        return userService.signup(user);
+    public ResponseEntity<ReturnObjUser> signup(@RequestBody User user) {
+        String jwt = userService.signup(user);
+        ReturnObjUser obj = new ReturnObjUser("Created","User Created",jwt);
+        return ResponseEntity.status(201).body(obj);
     }
 }
